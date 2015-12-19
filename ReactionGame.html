@@ -23,8 +23,11 @@
 </head>
 <body>
 	<h1>Test your reactions!</h1>
-	<p>Click on the boxes and circles as quicly as you can</p>
-	<p class= "bold">Your time: <span id = "time">(not attempted yet)</span></p>
+	<p>Click on the boxes and circles as quickly as you can</p>
+	<p class= "bold">Your Time: <span id = "time">(not attempted yet)</span></p>
+	<p class= "bold">Time Left in Round: <span id ="roundTime">30 seconds</span></p>
+	<p class="bold">Best Time: <span id ="best">(You have not gotten a time yet!)</span></p>
+	<p class= "bold">Average Time: <span id="average">(Round hasn't ended!)</span></p>
 	
 <div id="box"></div>
 
@@ -42,11 +45,39 @@ function getRandomColor(){
 var clickedTime;
 var createdTime;
 var reactionTime;
+var bestTime = 1000000000;
+var averageTimes = new Array();
+
+	function countDown(x){
+		var roundTime = 10 - x;
+		document.getElementById("roundTime").innerHTML=roundTime;
+	}
+
+
 	function makeBox(){
-		
+
+	
 		var time = Math.random();
 		time = time * 5000;
 		setTimeout(function(){
+			
+			if (run == false){
+
+				//Find average time at the end of the round
+					var sum = 0;
+					for( var i = 0; i < averageTimes.length; i++ ){
+					    sum += parseInt( averageTimes[i], 10 ); //don't forget to add the base
+					}
+
+					var avg = sum/averageTimes.length;
+					document.getElementById('average').innerHTML=avg + " seconds";
+
+				clearInterval(counter);
+			     return;
+			}
+			
+
+			
 			if (Math.random()>.5){
 			document.getElementById('box').style.borderRadius="100px";
 		}
@@ -64,20 +95,64 @@ var reactionTime;
 		document.getElementById("box").style.left=left+"px";
 		
 		
-			document.getElementById("box").style.backgroundColor=getRandomColor();
+		document.getElementById("box").style.backgroundColor=getRandomColor();
 		document.getElementById("box").style.display="block";
 		createdTime = Date.now();
+
 		}, time)
-	}
+		}
+
 
 	document.getElementById("box").onclick=function(){
 		clickedTime = Date.now();
 		reactionTime = (clickedTime - createdTime)/1000;
+		averageTimes.push(reactionTime);
+
+		if (reactionTime < bestTime){
+			document.getElementById("best").innerHTML=reactionTime + "seconds";
+			bestTime = reactionTime;
+		};
 		document.getElementById("time").innerHTML=reactionTime + " seconds";
 	document.getElementById("box").style.display="none";
 	makeBox();
-}
+	}
+	function testing(i){
+
+		countDown(i);
+	}
+
+
+
+
+	var count=30;
+
+	var counter=setInterval(timer, 1000); //1000 will  run it every 1 second
+	
+		var run = true;
+	function timer()
+		{
+		  count=count-1;
+		  
+		  if (count == 0){
+		  	run = false;
+		  };
+		  
+		  if (count <= -1)
+			  {
+			     clearInterval(counter);
+			     return;
+			  }
+
+		 document.getElementById("roundTime").innerHTML=count + " seconds"; // watch for spelling
+		}
+
+
+	
+
+
+
 makeBox();
+
 
 </script>
 
