@@ -19,16 +19,36 @@
 	.bold{
 		font-weight:bold;
 	}
+	table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    border-spacing: 5px;
+    padding: 15px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+	}
+	h1{
+		background-color: lightblue;
+		text-align: center;
+	}
+	.info{
+		text-align: center;
+	}
 	</style>
 </head>
 <body>
 	<h1>Test your reactions!</h1>
-	<p>Click on the boxes and circles as quickly as you can</p>
-	<p class= "bold">Your Time: <span id = "time">(not attempted yet)</span></p>
-	<p class= "bold">Time Left in Round: <span id ="roundTime">30 seconds</span></p>
-	<p class="bold">Best Time: <span id ="best">(You have not gotten a time yet!)</span></p>
-	<p class= "bold">Average Time: <span id="average">(Round hasn't ended!)</span></p>
-	
+	<p class="info">Click on the boxes and circles as quickly as you can</p>
+	<table>
+		<tr>
+			<td class= "bold">Your Time: <span id = "time">(not attempted yet)</span></td>
+			<td class= "bold">Time Left in Round: <span id ="roundTime">30 seconds</span></td>
+			<td class="bold">Best Time: <span id ="best">(You have not gotten a time yet!)</span></td>
+			<td class= "bold">Average Time: <span id="average">(Round hasn't ended!)</span></td>
+		</tr>	
+	</table>
+
 <div id="box"></div>
 
 <script type="text/javascript">
