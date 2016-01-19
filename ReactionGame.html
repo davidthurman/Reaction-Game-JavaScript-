@@ -9,6 +9,16 @@
 	body {
 		font-family:Verdana, Geneva, sans-serif;
 	}
+	#btn{
+		background-color: #66ccff;
+		width:150px;
+		height: 45px;
+		-moz-border-radius: 100px / 50px;
+		-webkit-border-radius: 100px / 50px;
+		border-radius: 100px / 50px;
+
+
+	}
 	#box{
 		width:200px;
 		height:200px;
@@ -27,6 +37,10 @@
     text-align: left;
     background-color: #4CAF50;
     color: white;
+	}
+	.center{
+		text-align: center;
+
 	}
 	h1{
 		background-color: lightblue;
@@ -49,10 +63,13 @@
 		</tr>	
 	</table>
 
+	<div class="center">
+	<button id="btn" onClick= "restartFunction()" font-size= "100px">Restart</button>
+	</div>
+
 <div id="box"></div>
 
 <script type="text/javascript">
-
 function getRandomColor(){
 	var letters = '0123456789ABCDEF'.split('');
 	var color = '#';
@@ -62,41 +79,47 @@ function getRandomColor(){
 	return color;
 }
 
+
+function restartFunction(){
+	averageTimes = [];
+	count = 30;
+	document.getElementById("roundTime").innerHTML=count + " seconds"; 
+	run = true;
+	makeBox();
+	timer(); 
+}
+
+
 var clickedTime;
 var createdTime;
 var reactionTime;
 var bestTime = 1000000000;
 var averageTimes = new Array();
-
 	function countDown(x){
 		var roundTime = 10 - x;
 		document.getElementById("roundTime").innerHTML=roundTime;
 	}
-
-
 	function makeBox(){
-
 	
 		var time = Math.random();
 		time = time * 5000;
 		setTimeout(function(){
 			
 			if (run == false){
-
 				//Find average time at the end of the round
 					var sum = 0;
 					for( var i = 0; i < averageTimes.length; i++ ){
-					    sum += parseInt( averageTimes[i], 10 ); //don't forget to add the base
+					    sum += averageTimes[i]; 
 					}
-
 					var avg = sum/averageTimes.length;
+					if(avg.length > 3){
+						avg = avg.substring(0,3);
+					}
 					document.getElementById('average').innerHTML=avg + " seconds";
-
 				clearInterval(counter);
 			     return;
 			}
 			
-
 			
 			if (Math.random()>.5){
 			document.getElementById('box').style.borderRadius="100px";
@@ -118,37 +141,28 @@ var averageTimes = new Array();
 		document.getElementById("box").style.backgroundColor=getRandomColor();
 		document.getElementById("box").style.display="block";
 		createdTime = Date.now();
-
 		}, time)
 		}
+			document.getElementById("box").onclick=function(){
+				clickedTime = Date.now();
+				reactionTime = (clickedTime - createdTime)/1000;
+				averageTimes.push(reactionTime);
 
+					if (reactionTime < bestTime){
+						document.getElementById("best").innerHTML=reactionTime + "seconds";
+						bestTime = reactionTime;
+					};
 
-	document.getElementById("box").onclick=function(){
-		clickedTime = Date.now();
-		reactionTime = (clickedTime - createdTime)/1000;
-		averageTimes.push(reactionTime);
-
-		if (reactionTime < bestTime){
-			document.getElementById("best").innerHTML=reactionTime + "seconds";
-			bestTime = reactionTime;
-		};
-		document.getElementById("time").innerHTML=reactionTime + " seconds";
-	document.getElementById("box").style.display="none";
-	makeBox();
-	}
+			document.getElementById("time").innerHTML=reactionTime + " seconds";
+			document.getElementById("box").style.display="none";
+			makeBox();
+			}
 	function testing(i){
-
 		countDown(i);
 	}
-
-
-
-
 	var count=30;
-
-	var counter=setInterval(timer, 1000); //1000 will  run it every 1 second
-	
-		var run = true;
+	var counter=setInterval(timer, 1000); 
+	var run = true;
 	function timer()
 		{
 		  count=count-1;
@@ -162,18 +176,10 @@ var averageTimes = new Array();
 			     clearInterval(counter);
 			     return;
 			  }
-
-		 document.getElementById("roundTime").innerHTML=count + " seconds"; // watch for spelling
+		 document.getElementById("roundTime").innerHTML=count + " seconds"; 
 		}
-
-
 	
-
-
-
 makeBox();
-
-
 </script>
 
 
