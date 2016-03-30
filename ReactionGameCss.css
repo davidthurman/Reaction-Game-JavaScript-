@@ -1,0 +1,43 @@
+body {
+		font-family:Verdana, Geneva, sans-serif;
+	}
+	#btn{
+		background-color: #66ccff;
+		width:150px;
+		height: 45px;
+		-moz-border-radius: 100px / 50px;
+		-webkit-border-radius: 100px / 50px;
+		border-radius: 100px / 50px;
+
+
+	}
+	#box{
+		width:200px;
+		height:200px;
+		background-color:red;
+		display : none;
+		position:relative;
+	}
+	.bold{
+		font-weight:bold;
+	}
+	table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    border-spacing: 5px;
+    padding: 15px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+	}
+	.center{
+		text-align: center;
+
+	}
+	h1{
+		background-color: lightblue;
+		text-align: center;
+	}
+	.info{
+		text-align: center;
+	}
